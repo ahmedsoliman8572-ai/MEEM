@@ -75,7 +75,7 @@
   /* Layout */
   --container-max: 1200px;
   --container-wide: 1400px;
-  --nav-height: 80px;
+  --nav-height: 100px;
   --border-radius-sm: 8px;
   --border-radius-md: 12px;
   --border-radius-lg: 20px;
@@ -361,7 +361,7 @@ button, input, textarea, select {
 }
 
 .nav__logo img {
-  height: 50px;
+  height: 75px;
   width: auto;
   transition: filter var(--transition-base);
 }
@@ -563,7 +563,7 @@ button, input, textarea, select {
 }
 
 .hero__logo {
-  width: 180px;
+  width: 320px;
   height: auto;
   margin: 0 auto var(--space-2xl);
   filter: brightness(0) invert(1);
@@ -573,7 +573,7 @@ button, input, textarea, select {
 }
 
 .hero__title {
-  font-size: var(--fs-5xl);
+  font-size: var(--fs-4xl);
   font-weight: var(--fw-black);
   color: var(--white);
   line-height: 1.1;
@@ -590,7 +590,7 @@ button, input, textarea, select {
 }
 
 .hero__tagline {
-  font-size: var(--fs-lg);
+  font-size: var(--fs-md);
   font-weight: var(--fw-medium);
   color: rgba(255, 255, 255, 0.75);
   letter-spacing: var(--ls-wider);
