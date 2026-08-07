@@ -1179,7 +1179,7 @@ button, input, textarea, select {
 
 .process__step:hover .process__step-desc,
 .process__step--active .process__step-desc {
-  max-height: 100px;
+  max-height: 300px;
   opacity: 1;
   margin-top: var(--space-sm);
 }
