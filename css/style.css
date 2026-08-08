@@ -981,12 +981,15 @@ button, input, textarea, select {
 
 /* ---------- Detailed Services ---------- */
 .services-detailed {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-xl);
 }
 
 .service-block {
+  flex: 1 1 340px;
+  max-width: calc(33.333% - (var(--space-xl) * 2 / 3));
   background: var(--white);
   border: 1px solid rgba(0, 33, 92, 0.08);
   border-radius: var(--border-radius-lg);
@@ -1672,6 +1675,260 @@ button, input, textarea, select {
   }
 }
 
+/* NEW: Typewriter cursor blink */
+@keyframes typewriterBlink {
+  0%, 100% { border-right-color: var(--sand); }
+  50% { border-right-color: transparent; }
+}
+
+/* NEW: Shimmer sweep across CTA button */
+@keyframes shimmerSweep {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+/* NEW: Icon bounce on reveal */
+@keyframes iconBounce {
+  0% { transform: scale(0.5) translateY(10px); opacity: 0; }
+  60% { transform: scale(1.15) translateY(-4px); opacity: 1; }
+  80% { transform: scale(0.95) translateY(1px); }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+/* NEW: Particle drift */
+@keyframes particleDrift1 {
+  0% { transform: translate(0, 0); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.6; }
+  100% { transform: translate(120px, -200px); opacity: 0; }
+}
+
+@keyframes particleDrift2 {
+  0% { transform: translate(0, 0); opacity: 0; }
+  10% { opacity: 0.4; }
+  90% { opacity: 0.4; }
+  100% { transform: translate(-100px, -180px); opacity: 0; }
+}
+
+@keyframes particleDrift3 {
+  0% { transform: translate(0, 0); opacity: 0; }
+  10% { opacity: 0.5; }
+  90% { opacity: 0.5; }
+  100% { transform: translate(80px, -250px); opacity: 0; }
+}
+
+/* NEW: Stat icon pulse glow */
+@keyframes statPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(198, 161, 91, 0.4); }
+  50% { box-shadow: 0 0 16px 4px rgba(198, 161, 91, 0.25); }
+}
+
+/* NEW: Curtain reveal slide */
+@keyframes curtainSlide {
+  0% { transform: scaleY(1); }
+  100% { transform: scaleY(0); }
+}
+
+/* NEW: Progress line fill */
+@keyframes progressFill {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+/* ========== NEW VISUAL ENHANCEMENTS ========== */
+
+/* --- 1. Typewriter effect for hero accent text --- */
+.hero__title-accent {
+  display: inline;
+  border-right: 3px solid var(--sand);
+  animation: typewriterBlink 0.8s steps(1) 2.5s infinite;
+}
+
+.hero__title-accent.typewriter-done {
+  border-right-color: transparent;
+  animation: none;
+}
+
+/* --- 2. Floating particles in hero background --- */
+.hero__particles {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero__particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(198, 161, 91, 0.5);
+  border-radius: 50%;
+}
+
+.hero__particle:nth-child(1) { bottom: 20%; left: 15%; animation: particleDrift1 8s linear infinite; }
+.hero__particle:nth-child(2) { bottom: 30%; left: 35%; animation: particleDrift2 10s linear infinite 2s; }
+.hero__particle:nth-child(3) { bottom: 10%; left: 55%; animation: particleDrift3 12s linear infinite 4s; }
+.hero__particle:nth-child(4) { bottom: 25%; left: 75%; animation: particleDrift1 9s linear infinite 1s; }
+.hero__particle:nth-child(5) { bottom: 15%; left: 90%; animation: particleDrift2 11s linear infinite 3s; }
+.hero__particle:nth-child(6) { bottom: 40%; left: 10%; animation: particleDrift3 14s linear infinite 5s; }
+.hero__particle:nth-child(7) { bottom: 5%; left: 45%; animation: particleDrift1 10s linear infinite 6s; }
+.hero__particle:nth-child(8) { bottom: 35%; left: 65%; animation: particleDrift2 13s linear infinite 7s; }
+
+/* --- 3. SVG wave section dividers --- */
+.wave-divider {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  line-height: 0;
+  z-index: 1;
+}
+
+.wave-divider svg {
+  display: block;
+  width: 100%;
+  height: 60px;
+}
+
+.wave-divider--top {
+  bottom: auto;
+  top: -1px;
+  transform: rotate(180deg);
+}
+
+.wave-divider--flip svg {
+  transform: scaleX(-1);
+}
+
+/* --- 4. Division cards glassmorphism glow --- */
+.division-card {
+  position: relative;
+}
+
+.division-card::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(198, 161, 91, 0.3), transparent 40%, transparent 60%, rgba(0, 33, 92, 0.2));
+  z-index: -1;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  filter: blur(6px);
+}
+
+.division-card:hover::after {
+  opacity: 1;
+}
+
+/* --- 5. Process timeline animated progress line --- */
+.process__timeline-progress {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--sand), rgba(198, 161, 91, 0.6));
+  border-radius: 2px;
+  transform: translateY(-50%);
+  width: 0%;
+  transition: width 2s ease-in-out;
+  z-index: 1;
+}
+
+.process__timeline.timeline--in-view .process__timeline-progress {
+  width: 100%;
+}
+
+.process__step-number {
+  transition: all var(--transition-base), box-shadow 0.4s ease;
+}
+
+.process__step.step--in-view .process__step-number {
+  box-shadow: 0 0 20px rgba(198, 161, 91, 0.4);
+  border-color: var(--sand);
+  background: rgba(198, 161, 91, 0.2);
+  color: var(--sand);
+}
+
+/* --- 6. Industry card icon bounce --- */
+.industry-card__icon {
+  transition: all var(--transition-base), transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.industry-card.reveal--visible .industry-card__icon {
+  animation: iconBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* --- 7. Page load curtain --- */
+.page-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--navy-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: top;
+  transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.page-curtain.curtain--hidden {
+  transform: scaleY(0);
+  pointer-events: none;
+}
+
+.page-curtain__logo {
+  width: 120px;
+  height: auto;
+  filter: brightness(0) invert(1);
+  opacity: 0.9;
+  animation: heroLogoReveal 0.6s ease-out forwards;
+}
+
+/* --- 8. Button shimmer sweep --- */
+.btn--sand {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn--sand::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transform: skewX(-20deg);
+  animation: shimmerSweep 3s ease-in-out 2.5s infinite;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* --- 9. Why MEEM stat icon pulse --- */
+.why__stat-icon {
+  transition: all var(--transition-base);
+}
+
+.why__stat.stat--in-view .why__stat-icon {
+  animation: statPulse 2s ease-in-out infinite;
+}
+
+/* --- 10. Navbar logo shrink on scroll --- */
+.nav__logo img {
+  transition: height var(--transition-base), filter var(--transition-base);
+}
+
+.nav--scrolled .nav__logo img {
+  height: 55px;
+}
+
 /* ---------- Reduced Motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -1706,6 +1963,16 @@ button, input, textarea, select {
     /* Keep the original transform for centering */
     transform: translateX(-50%);
   }
+
+  /* Disable new enhancements for reduced motion */
+  .hero__particles { display: none; }
+  .hero__title-accent { border-right: none; animation: none; }
+  .btn--sand::before { display: none; }
+  .page-curtain { display: none; }
+  .why__stat.stat--in-view .why__stat-icon { animation: none; }
+  .industry-card.reveal--visible .industry-card__icon { animation: none; }
+  .process__timeline-progress { display: none; }
+  .division-card::after { display: none; }
 }
 
 /* ==========================================================================
@@ -1809,8 +2076,8 @@ button, input, textarea, select {
     gap: var(--space-xl);
   }
 
-  .services-detailed {
-    grid-template-columns: 1fr 1fr;
+  .service-block {
+    max-width: calc(50% - (var(--space-xl) / 2));
   }
 }
 
@@ -1884,7 +2151,7 @@ button, input, textarea, select {
   }
 
   .nav__logo img {
-    height: 36px;
+    height: 50px;
   }
 
   .nav__hamburger {
@@ -1928,13 +2195,33 @@ button, input, textarea, select {
     padding-top: var(--nav-height);
   }
 
+  /* --- NEW: Mobile enhancement adjustments --- */
+  .hero__particle { width: 3px; height: 3px; }
+  .hero__particle:nth-child(n+6) { display: none; } /* fewer particles on mobile */
+
+  .wave-divider svg { height: 30px; }
+
+  .page-curtain__logo { width: 80px; }
+
+  .nav--scrolled .nav__logo img { height: 40px; }
+
+  .btn--sand::before { animation-delay: 3s; }
+
+  .hero__title-accent { border-right-width: 2px; }
+
+  /* Hide process progress line on mobile (cards are vertical) */
+  .process__timeline-progress { display: none; }
+
+  /* Division card glow disabled on mobile for performance */
+  .division-card::after { display: none; }
+
   .hero__content {
     padding: var(--space-xl) 20px var(--space-2xl);
     max-width: 100%;
   }
 
   .hero__logo {
-    width: 100px;
+    width: 180px;
     margin-bottom: var(--space-lg);
   }
 
@@ -2580,8 +2867,14 @@ button, input, textarea, select {
   .container { padding: 0 16px; }
   .section { padding: var(--space-2xl) 0; }
 
+  /* Small phone enhancement adjustments */
+  .wave-divider svg { height: 20px; }
+  .hero__particle:nth-child(n+4) { display: none; }
+  .page-curtain__logo { width: 60px; }
+  .nav--scrolled .nav__logo img { height: 36px; }
+
   .hero__logo {
-    width: 80px;
+    width: 140px;
     margin-bottom: var(--space-md);
   }
 
@@ -2675,8 +2968,8 @@ button, input, textarea, select {
 
   .container { padding: 0 12px; }
   .nav__inner { padding: 0 12px; }
-  .nav__logo img { height: 32px; }
-  .hero__logo { width: 70px; }
+  .nav__logo img { height: 42px; }
+  .hero__logo { width: 120px; }
   .hero__actions { max-width: 100%; }
 
   .divisions { padding: 6px 12px 12px; margin: 0 -12px; }
@@ -2756,7 +3049,7 @@ button, input, textarea, select {
     padding: calc(var(--nav-height) + 20px) 0 var(--space-xl);
   }
 
-  .hero__logo { width: 64px; margin-bottom: var(--space-sm); }
+  .hero__logo { width: 100px; margin-bottom: var(--space-sm); }
   .hero__title { font-size: var(--fs-xl); }
   .hero__tagline { margin-bottom: var(--space-sm); }
 
