@@ -3,16 +3,39 @@
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
+  initCurtainReveal();
   initNavbar();
   initScrollReveal();
   initMobileMenu();
   initSmoothScroll();
   initProcessTimeline();
+  initProcessProgress();
   initContactForm();
   initNavActiveState();
   initMobileViewportFix();
   initDivisionScroll();
+  initTypewriter();
+  initStatPulse();
 });
+
+/* ---------- Page Load Curtain ---------- */
+function initCurtainReveal() {
+  const curtain = document.getElementById('pageCurtain');
+  if (!curtain) return;
+
+  // Respect reduced motion
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    curtain.remove();
+    return;
+  }
+
+  // Show curtain briefly, then slide away
+  setTimeout(() => {
+    curtain.classList.add('curtain--hidden');
+    // Remove from DOM after animation
+    setTimeout(() => curtain.remove(), 900);
+  }, 800);
+}
 
 /* ---------- Navbar Scroll Effect ---------- */
 function initNavbar() {
@@ -166,6 +189,40 @@ function initProcessTimeline() {
   });
 }
 
+/* ---------- Process Progress Line (Animated on Reveal) ---------- */
+function initProcessProgress() {
+  const timeline = document.querySelector('.process__timeline');
+  const steps = document.querySelectorAll('.process__step');
+
+  if (!timeline || !steps.length) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Add class to trigger CSS width transition
+          timeline.classList.add('timeline--in-view');
+          
+          // Light up step numbers sequentially
+          steps.forEach((step, i) => {
+            setTimeout(() => {
+              step.classList.add('step--in-view');
+            }, i * 300); // 300ms delay between each step
+          });
+
+          observer.unobserve(timeline);
+        }
+      });
+    },
+    {
+      threshold: 0.3
+    }
+  );
+
+  observer.observe(timeline);
+}
+
 /* ---------- Contact Form ---------- */
 function initContactForm() {
   const form = document.querySelector('#contactForm');
@@ -185,20 +242,33 @@ function initContactForm() {
     submitBtn.textContent = 'Sending...';
     submitBtn.disabled = true;
 
-    // Simulate send (in production, this would be a real API call)
-    setTimeout(() => {
+    // Send data to Google Forms
+    fetch('https://docs.google.com/forms/d/e/1FAIpQLSc3UeamNYQAFsXgcMgc4r9tUrT9MHyl8r4cGh_pKzHIR7F-UQ/formResponse', {
+      method: 'POST',
+      mode: 'no-cors',
+      body: formData
+    }).then(() => {
+      // Success feedback (no-cors always resolves to opaque response if network succeeds)
       submitBtn.textContent = 'Message Sent ✓';
       submitBtn.style.background = '#27ae60';
       submitBtn.style.borderColor = '#27ae60';
 
       setTimeout(() => {
         form.reset();
-        submitBtn.textContent = 'Send Message';
+        submitBtn.innerHTML = 'Send Message <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
         submitBtn.disabled = false;
         submitBtn.style.background = '';
         submitBtn.style.borderColor = '';
       }, 3000);
-    }, 1500);
+    }).catch(error => {
+      // Error feedback
+      submitBtn.textContent = 'Error. Try Again.';
+      
+      setTimeout(() => {
+        submitBtn.innerHTML = 'Send Message <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+        submitBtn.disabled = false;
+      }, 3000);
+    });
   });
 
   // Add floating label effect
@@ -211,6 +281,69 @@ function initContactForm() {
       input.parentElement.classList.remove('form-group--focused');
     });
   });
+}
+
+/* ---------- Typewriter Effect for Hero Accent Text ---------- */
+function initTypewriter() {
+  const accent = document.querySelector('.hero__title-accent');
+  if (!accent) return;
+
+  const text = accent.getAttribute('data-text') || '';
+  if (!text) return;
+
+  // If reduced motion, show text immediately
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    accent.textContent = text;
+    accent.classList.add('typewriter-done');
+    return;
+  }
+
+  // Start typing after a short delay
+  let charIndex = 0;
+  // Use zero-width space to preserve line height while empty
+  accent.textContent = '\u200B';
+
+  setTimeout(() => {
+    function typeChar() {
+      if (charIndex === 0) {
+        accent.textContent = ''; // clear zero-width space on first char
+      }
+      if (charIndex < text.length) {
+        accent.textContent += text.charAt(charIndex);
+        charIndex++;
+        setTimeout(typeChar, 40 + Math.random() * 30); // slight randomness, faster typing
+      } else {
+        // Stop cursor blink after typing is done
+        setTimeout(() => {
+          accent.classList.add('typewriter-done');
+        }, 1500);
+      }
+    }
+    typeChar();
+  }, 1000); // 1s delay instead of 1.8s
+}
+
+/* ---------- Stat Icon Pulse on Viewport Entry ---------- */
+function initStatPulse() {
+  const stats = document.querySelectorAll('.why__stat');
+  if (!stats.length) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('stat--in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.4
+    }
+  );
+
+  stats.forEach(stat => observer.observe(stat));
 }
 
 /* ---------- Counter Animation (for stats if needed) ---------- */
@@ -328,4 +461,3 @@ function debounce(fn, ms) {
     timer = setTimeout(() => fn.apply(this, args), ms);
   };
 }
-
