@@ -258,6 +258,11 @@ button, input, textarea, select {
   border: 2px solid var(--navy);
 }
 
+.btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  color: var(--white) !important;
+}
 .btn--primary::after {
   background: linear-gradient(135deg, var(--navy-light), var(--navy));
 }
