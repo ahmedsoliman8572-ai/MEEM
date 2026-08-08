@@ -2231,9 +2231,6 @@ button, input, textarea, select {
     margin-bottom: var(--space-sm);
   }
 
-  .hero__title br {
-    display: none;
-  }
 
   .hero__tagline {
     font-size: 0.75rem;
