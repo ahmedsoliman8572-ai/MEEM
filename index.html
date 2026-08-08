@@ -46,6 +46,11 @@
 </head>
 <body>
 
+  <!-- Page Loading Curtain -->
+  <div class="page-curtain" id="pageCurtain">
+    <img src="assets/logo.png" alt="MEEM" class="page-curtain__logo">
+  </div>
+
   <!-- ========== NAVIGATION ========== -->
   <nav class="nav" id="navbar">
     <div class="nav__inner">
@@ -90,6 +95,17 @@
       <div class="hero__shape hero__shape--2"></div>
       <div class="hero__shape hero__shape--3"></div>
       <div class="hero__grid"></div>
+      <!-- Floating particles -->
+      <div class="hero__particles">
+        <div class="hero__particle"></div>
+        <div class="hero__particle"></div>
+        <div class="hero__particle"></div>
+        <div class="hero__particle"></div>
+        <div class="hero__particle"></div>
+        <div class="hero__particle"></div>
+        <div class="hero__particle"></div>
+        <div class="hero__particle"></div>
+      </div>
     </div>
 
     <div class="hero__content">
@@ -97,7 +113,7 @@
 
       <h1 class="hero__title">
         Great Brands Are Built With<br>
-        <span class="hero__title-accent">Vision, Strategy & Creativity</span>
+        <span class="hero__title-accent" data-text="Vision, Strategy &amp; Creativity"></span>
       </h1>
 
       <p class="hero__tagline">
@@ -110,10 +126,13 @@
       </div>
     </div>
 
+    <!-- Wave divider -->
+    <div class="wave-divider">
+      <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,40 C360,80 720,0 1080,40 C1260,60 1380,30 1440,40 L1440,60 L0,60 Z" fill="#FFFFFF"/>
+      </svg>
+    </div>
   </section>
-
-
-  <!-- ========== ABOUT ========== -->
   <section class="section" id="about">
     <div class="container">
       <div class="text-center reveal">
@@ -185,10 +204,13 @@
         </div>
       </div>
     </div>
+    <!-- Wave divider -->
+    <div class="wave-divider">
+      <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,20 C240,60 480,0 720,30 C960,60 1200,10 1440,40 L1440,60 L0,60 Z" fill="var(--cloud)"/>
+      </svg>
+    </div>
   </section>
-
-
-  <!-- ========== VISION & MISSION ========== -->
   <section class="section section--cloud" id="vision">
     <div class="container">
       <div class="text-center reveal">
@@ -375,6 +397,7 @@
       </div>
 
       <div class="process__timeline reveal">
+        <div class="process__timeline-progress" id="processProgress"></div>
         <div class="process__step" data-step="1">
           <div class="process__step-number">01</div>
           <div class="process__step-content">
@@ -607,23 +630,23 @@
           </p>
 
           <div class="contact__channels">
-            <a href="mailto:mohamedercx@gmail.com" class="contact__channel">
+            <a href="mailto:meem.creativegroub@gmail.com" class="contact__channel">
               <div class="contact__channel-icon">
                 <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
               </div>
               <div class="contact__channel-text">
                 <h4>Email Us</h4>
-                <span>mohamedercx@gmail.com</span>
+                <span>meem.creativegroub@gmail.com</span>
               </div>
             </a>
 
-            <a href="https://wa.me/201028644304" target="_blank" rel="noopener" class="contact__channel">
+            <a href="https://wa.me/201557379763" target="_blank" rel="noopener" class="contact__channel">
               <div class="contact__channel-icon">
                 <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
               </div>
               <div class="contact__channel-text">
                 <h4>WhatsApp / Call</h4>
-                <span>+20 102 864 4304</span>
+                <span>+20 155 737 9763</span>
               </div>
             </a>
 
@@ -633,8 +656,13 @@
               </div>
               <div class="contact__channel-text">
                 <h4>Visit Us</h4>
-                <span>Cairo, Egypt</span>
+                <span>Shibin el Kom, Menofia, Egypt</span>
               </div>
+            </div>
+
+            <!-- Map -->
+            <div class="contact__map" style="margin-top: 30px; border-radius: 12px; overflow: hidden; height: 250px; box-shadow: var(--shadow-sm); border: 1px solid rgba(0, 33, 92, 0.08);">
+              <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=Shibin%20el%20Kom,%20Menofia,%20Egypt&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
             </div>
           </div>
         </div>
@@ -645,34 +673,34 @@
             <div class="form-row">
               <div class="form-group">
                 <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" placeholder="Your name" required>
+                <input type="text" id="name" name="entry.727537346" placeholder="Your name" required>
               </div>
               <div class="form-group">
                 <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" placeholder="you@company.com" required>
+                <input type="email" id="email" name="entry.1715967368" placeholder="you@company.com" required>
               </div>
             </div>
 
             <div class="form-row">
               <div class="form-group">
                 <label for="company">Company</label>
-                <input type="text" id="company" name="company" placeholder="Company name">
+                <input type="text" id="company" name="entry.1252536887" placeholder="Company name">
               </div>
               <div class="form-group">
                 <label for="division">Division of Interest</label>
-                <select id="division" name="division">
+                <select id="division" name="entry.193595545">
                   <option value="">Select a division</option>
-                  <option value="creative">MEEM Creative</option>
-                  <option value="studios">MEEM Studios</option>
-                  <option value="events">MEEM Events</option>
-                  <option value="integrated">Integrated Solution</option>
+                  <option value="MEEM Creative">MEEM Creative</option>
+                  <option value="MEEM Studios">MEEM Studios</option>
+                  <option value="MEEM Events">MEEM Events</option>
+                  <option value="Integrated Solution">Integrated Solution</option>
                 </select>
               </div>
             </div>
 
             <div class="form-group">
               <label for="message">Tell Us About Your Project</label>
-              <textarea id="message" name="message" placeholder="What challenge are you looking to solve? What are your goals?" rows="5" required></textarea>
+              <textarea id="message" name="entry.520100569" placeholder="What challenge are you looking to solve? What are your goals?" rows="5" required></textarea>
             </div>
 
             <button type="submit" class="btn btn--primary" style="width: 100%;">
@@ -718,8 +746,8 @@
           <h4>Get in Touch</h4>
           <ul>
             <li><a href="#contact">Contact Us</a></li>
-            <li><a href="mailto:mohamedercx@gmail.com">mohamedercx@gmail.com</a></li>
-            <li><a href="https://wa.me/201028644304" target="_blank" rel="noopener">WhatsApp (+20 102 864 4304)</a></li>
+            <li><a href="mailto:meem.creativegroub@gmail.com">meem.creativegroub@gmail.com</a></li>
+            <li><a href="https://wa.me/201557379763" target="_blank" rel="noopener">WhatsApp (+20 155 737 9763)</a></li>
           </ul>
         </div>
       </div>
@@ -736,6 +764,6 @@
   </footer>
 
   <!-- Scripts -->
-  <script src="js/main.js"></script>
+  <script src="js/main.js?v=2"></script>
 </body>
 </html>
