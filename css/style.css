@@ -472,30 +472,74 @@ button, input, textarea, select {
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
+/* When mobile menu is open, remove scrolled white background and backdrop-filter */
+.nav.nav--menu-open {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+  border-bottom: none !important;
+}
+
+.nav.nav--menu-open .nav__logo img {
+  filter: brightness(0) invert(1) !important;
+}
+
+.nav.nav--menu-open .nav__hamburger span {
+  background: var(--white) !important;
+}
+
 /* Mobile menu */
 .nav__mobile {
-  display: none;
+  display: flex;
   position: fixed;
-  inset: 0;
-  background: var(--navy);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  background: #001233;
   z-index: 999;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: var(--space-xl);
+  justify-content: space-evenly;
+  padding: calc(var(--nav-height) + 15px) var(--space-lg) calc(var(--space-xl) + 15px);
+  gap: 2px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   opacity: 0;
   visibility: hidden;
-  transition: all var(--transition-slow);
+  pointer-events: none;
+  transition: opacity var(--transition-base), visibility var(--transition-base);
 }
 
 .nav__mobile--open {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
 }
 
 .nav__mobile .nav__link {
-  font-size: var(--fs-xl);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-semibold);
   color: var(--white);
+  padding: 8px 16px;
+  width: 100%;
+  max-width: 320px;
+  text-align: center;
+  border-radius: var(--border-radius-sm);
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav__mobile .nav__link:hover,
+.nav__mobile .nav__link--active {
+  color: var(--sand);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 /* ---------- Hero Section ---------- */
@@ -2175,21 +2219,19 @@ button, input, textarea, select {
   }
 
   .nav__mobile {
-    gap: var(--space-md);
-    padding: var(--space-xl);
+    justify-content: space-evenly;
+    padding: calc(var(--nav-height) + 10px) var(--space-md) calc(var(--space-lg) + 10px);
   }
 
   .nav__mobile .nav__link {
-    font-size: var(--fs-xl);
-    padding: 10px 0;
-    min-height: 44px;
-    display: flex;
-    align-items: center;
+    font-size: var(--fs-lg);
+    padding: 8px 16px;
+    min-height: 42px;
   }
 
   .nav__mobile .nav__cta {
-    margin-top: var(--space-md);
-    padding: 14px 32px;
+    margin-top: 4px;
+    padding: 14px 36px;
     font-size: var(--fs-sm);
   }
 
