@@ -135,31 +135,17 @@ function initSmoothScroll() {
   });
 }
 
-/* ---------- Active Nav State ---------- */
+/* ---------- Active Nav State (Multi-Page) ---------- */
 function initNavActiveState() {
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav__link[href^="#"]');
+  // Detect current page from URL and highlight matching nav link
+  const currentPath = window.location.pathname;
+  const currentFile = currentPath.split('/').pop().replace('.html', '') || 'index';
 
-  if (!sections.length || !navLinks.length) return;
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const id = entry.target.getAttribute('id');
-          navLinks.forEach(link => {
-            link.classList.toggle('nav__link--active', link.getAttribute('href') === `#${id}`);
-          });
-        }
-      });
-    },
-    {
-      threshold: 0.3,
-      rootMargin: '-80px 0px -50% 0px'
+  document.querySelectorAll('[data-page]').forEach(link => {
+    if (link.getAttribute('data-page') === currentFile) {
+      link.classList.add('nav__link--active');
     }
-  );
-
-  sections.forEach(section => observer.observe(section));
+  });
 }
 
 /* ---------- Process Timeline ---------- */
