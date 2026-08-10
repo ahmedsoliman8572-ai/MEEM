@@ -92,6 +92,7 @@ function initScrollReveal() {
 
 /* ---------- Mobile Menu ---------- */
 function initMobileMenu() {
+  const nav = document.querySelector('.nav');
   const hamburger = document.querySelector('.nav__hamburger');
   const mobileMenu = document.querySelector('.nav__mobile');
   const mobileLinks = document.querySelectorAll('.nav__mobile .nav__link');
@@ -99,15 +100,17 @@ function initMobileMenu() {
   if (!hamburger || !mobileMenu) return;
 
   hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('nav__hamburger--open');
-    mobileMenu.classList.toggle('nav__mobile--open');
-    document.body.style.overflow = mobileMenu.classList.contains('nav__mobile--open') ? 'hidden' : '';
+    const isOpen = hamburger.classList.toggle('nav__hamburger--open');
+    mobileMenu.classList.toggle('nav__mobile--open', isOpen);
+    if (nav) nav.classList.toggle('nav--menu-open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
   });
 
   mobileLinks.forEach(link => {
     link.addEventListener('click', () => {
       hamburger.classList.remove('nav__hamburger--open');
       mobileMenu.classList.remove('nav__mobile--open');
+      if (nav) nav.classList.remove('nav--menu-open');
       document.body.style.overflow = '';
     });
   });
